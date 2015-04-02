@@ -253,7 +253,9 @@ class ResponseMixin(object):
             content = renderer.render()
 
         # Build the HTTP Response
-        resp = HttpResponse(content, mimetype=response.media_type, status=response.status)
+        # mimetype is removed from django 1.7+
+        # resp = HttpResponse(content, mimetype=response.media_type, status=response.status)
+        resp = HttpResponse(content, status=response.status)
         for (key, val) in response.headers.items():
             resp[key] = val
 
