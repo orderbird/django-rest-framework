@@ -181,7 +181,7 @@ class RequestMixin(object):
                 return parser.parse(stream)
 
         raise ErrorResponse(status.HTTP_415_UNSUPPORTED_MEDIA_TYPE,
-                            {'detail': 'Unsupported media type in request \'%s\'.' % 
+                            {'detail': 'Unsupported media type in request \'%s\'.' %
                             content_type})
 
     @property
@@ -253,9 +253,7 @@ class ResponseMixin(object):
             content = renderer.render()
 
         # Build the HTTP Response
-        # mimetype is removed from django 1.7+
-        # resp = HttpResponse(content, mimetype=response.media_type, status=response.status)
-        resp = HttpResponse(content, status=response.status)
+        resp = HttpResponse(content, content_type=response.media_type, status=response.status)
         for (key, val) in response.headers.items():
             resp[key] = val
 
